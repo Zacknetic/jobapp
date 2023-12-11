@@ -1,5 +1,7 @@
 package com.embarkx.jobapp.job;
 
+import com.embarkx.jobapp.company.Company;
+import com.embarkx.jobapp.company.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,12 @@ public class JobController {
     @Autowired
     private final JobService jobService;
 
-    public JobController(JobService _jobService) {
+    @Autowired
+    private final CompanyService companyService;
+
+    public JobController(JobService _jobService, CompanyService _companyService) {
         jobService = _jobService;
+        companyService = _companyService;
     }
 
     @GetMapping
@@ -36,7 +42,7 @@ public class JobController {
     @PostMapping
     public ResponseEntity<String> addJob(@RequestBody Job job) {
         jobService.createNew(job);
-        return new ResponseEntity<>("Review added successfully.", HttpStatus.CREATED);
+        return new ResponseEntity<>("Job added successfully.", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

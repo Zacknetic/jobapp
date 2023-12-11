@@ -37,7 +37,6 @@ public class Job {
     private String location;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", insertable = false)
     private Company company;
 
 }

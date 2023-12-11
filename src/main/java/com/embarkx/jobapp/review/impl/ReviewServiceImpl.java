@@ -5,7 +5,7 @@ import com.embarkx.jobapp.review.ReviewRepository;
 import com.embarkx.jobapp.review.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.embarkx.jobapp.company.Company;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,9 +54,9 @@ public class ReviewServiceImpl implements ReviewService {
         return false;
     }
 
-//    @Override
-//    public List<Review> findReviewsByCompany(Company company) {
-//      return reviewRepository.findAllByCompany(company);
-//    }
+    @Override
+    public List<Review> findReviewsByCompany(Company company) {
+      return reviewRepository.findAllByCompanyId(company.getId());
+    }
 
 }

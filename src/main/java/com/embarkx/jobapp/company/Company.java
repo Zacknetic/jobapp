@@ -2,6 +2,7 @@ package com.embarkx.jobapp.company;
 
 import com.embarkx.jobapp.job.Job;
 import com.embarkx.jobapp.review.Review;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,19 +26,23 @@ public class Company {
     private String title;
 
     @NonNull
-    @Column(name = "description", length = 1000, nullable = false, unique = true)
+    @Column(name = "description", length = 1000, nullable = false)
     private String description;
 
     @NonNull
-    @Column(name = "location", length = 1000, nullable = false, unique = true)
+    @Column(name = "location", length = 1000, nullable = false)
     private String location;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "company_reviews", joinColumns = {@JoinColumn(name = "company_id")}, inverseJoinColumns = {@JoinColumn(name = "review_id")})
+    //    @OneToMany(cascade = {CascadeType.ALL})
+    //    @JoinTable(name = "company_reviews", joinColumns = {@JoinColumn(name = "company_id")}, inverseJoinColumns = {@JoinColumn(name = "review_id")})
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
     private Set<Review> reviews = new HashSet<>();
-
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "company_jobs", joinColumns = {@JoinColumn(name = "company_id")}, inverseJoinColumns = {@JoinColumn(name = "job_id")})
+    //
+    //    @OneToMany(cascade = {CascadeType.ALL})
+    //    @JoinTable(name = "company_jobs", joinColumns = {@JoinColumn(name = "company_id")}, inverseJoinColumns = {@JoinColumn(name = "job_id")})
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Job> jobs = new HashSet<>();
 
 }

@@ -24,6 +24,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void createNew(Company company) {
+//        Company newCompany = new Company(company);
         companyRepository.save(company);
     }
 
@@ -35,7 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public boolean deleteCompanyById(Long id) {
         companyRepository.deleteById(id);
-        return companyRepository.findById(id).isPresent();
+        return companyRepository.findById(id).isEmpty();
     }
 
     @Override

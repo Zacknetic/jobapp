@@ -1,5 +1,6 @@
 package com.embarkx.jobapp.review;
 
+import com.embarkx.jobapp.company.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,9 @@ public class ReviewController {
 
     @GetMapping
     public ResponseEntity<List<Review>> findAll() {
-        List<Review> companies = reviewService.findAll();
-        if (companies.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(companies, HttpStatus.OK);
+        List<Review> reviews = reviewService.findAll();
+        if (reviews.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
 
     }
 

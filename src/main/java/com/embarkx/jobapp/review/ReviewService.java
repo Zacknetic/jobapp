@@ -1,5 +1,6 @@
 package com.embarkx.jobapp.review;
 import java.util.List;
+import com.embarkx.jobapp.company.Company;
 
 
 public interface ReviewService {
@@ -9,6 +10,5 @@ public interface ReviewService {
     Review getReviewById(Long id);
     boolean deleteReviewById(Long id);
     boolean editReview(Review review);
-
-//    public List<Review> findReviewsByCompany(Company company);
+    public List<Review> findReviewsByCompany(Company company);
 }
