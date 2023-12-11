@@ -1,0 +1,55 @@
+package com.embarkx.jobapp.company;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RequestMapping("/companies")
+@RestController
+public class CompanyController {
+
+    @Autowired
+    private final CompanyService companyService;
+
+    public CompanyController(CompanyService _companyService) {
+        companyService = _companyService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Company>> findAll() {
+        List<Company> companies = companyService.findAll();
+        if (companies.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(companies, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long id) {
+        Company company = companyService.getCompanyById(id);
+        if (company == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(company, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> addCompany(@RequestBody Company company) {
+        companyService.createNew(company);
+        return new ResponseEntity<>("Company added successfully.", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteCompanyById(@PathVariable Long id) {
+        if (!companyService.deleteCompanyById(id)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public  ResponseEntity<Boolean> editCompanyById( @RequestBody Company company) {
+
+        if(!companyService.editCompany(company)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+}
