@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -39,7 +37,22 @@ public class JobServiceImpl implements JobService {
             if(job.getId().equals(id)) {
                 jobs.remove(job);
                 return true;
-            };
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean editJob(Job _job) {
+        for(Job job : jobs) {
+            if(job.getId().equals(_job.getId())) {
+                job.setDescription(_job.getDescription());
+                job.setLocation(_job.getLocation());
+                job.setTitle(_job.getTitle());
+                job.setMaxSalary(_job.getMaxSalary());
+                job.setMinSalary(_job.getMinSalary());
+                return true;
+            }
         }
         return false;
     }

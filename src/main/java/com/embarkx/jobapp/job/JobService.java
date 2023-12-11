@@ -9,4 +9,5 @@ public interface JobService {
     void createNew(Job job);
     Job getJobById(Long id);
     boolean deleteJobById(Long id);
+    boolean editJob(Job job);
 }

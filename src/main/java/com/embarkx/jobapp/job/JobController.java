@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/jobs")
 @RestController
 public class JobController {
 
@@ -15,47 +16,38 @@ public class JobController {
         jobService = _jobService;
     }
 
-    @GetMapping("/jobs")
+    @GetMapping
     public ResponseEntity<List<Job>> findAll() {
         List<Job> jobs = jobService.findAll();
-        if (!jobs.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (jobs.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(jobs, HttpStatus.OK);
 
     }
 
-    @GetMapping("/jobs/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable Long id) {
         Job job = jobService.getJobById(id);
         if (job == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(job, HttpStatus.OK);
     }
 
-    @PostMapping("/jobs")
+    @PostMapping
     public ResponseEntity<String> addJob(@RequestBody Job job) {
         jobService.createNew(job);
-        return new ResponseEntity<>("Job added successfully.", HttpStatus.OK);
+        return new ResponseEntity<>("Job added successfully.", HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/jobs/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteJobById(@PathVariable Long id) {
         if (!jobService.deleteJobById(id)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
-//    @PutMapping("/jobs/{id}")
-//    public boolean editJobById(@PathVariable int id, @RequestBody Job job) {
-//        if(jobs.get(id) == null) return false;
-//        //TODO
-//        return true;
-//    }
+    @PutMapping
+    public  ResponseEntity<Boolean> editJobById( @RequestBody Job job) {
 
-/*
-TODO
-    @GetMapping("/jobs/{id}/company")
-    public boolean getJobCompanyById(@PathVariable int id) {
-        if(jobs.get(id) == null) return false;
-        return jobs.get(id).getCompany();
+        if(!jobService.editJob(job)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
 
- }
-*/
 }
