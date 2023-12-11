@@ -1,5 +1,6 @@
 package com.embarkx.jobapp.review;
 
+import com.embarkx.jobapp.company.Company;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name = "companies")
-public class Company {
+@Table(name = "reviews")
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +24,8 @@ public class Company {
     @Column(name = "description", length = 1000, nullable = false, unique = true)
     private String description;
 
-    @NonNull
-    @Column(name = "location", length = 1000, nullable = false, unique = true)
-    private String location;
+    @ManyToOne
+    @JoinColumn(name = "company_id", insertable = false)
+    private Company company;
 
 }

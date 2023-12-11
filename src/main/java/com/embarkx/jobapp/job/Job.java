@@ -1,5 +1,6 @@
 package com.embarkx.jobapp.job;
 
+import com.embarkx.jobapp.company.Company;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -34,5 +35,9 @@ public class Job {
     @NonNull
     @Column(name = "location", length = 1000, nullable = false, unique = true)
     private String location;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id", insertable = false)
+    private Company company;
 
 }

@@ -36,7 +36,7 @@ public class JobController {
     @PostMapping
     public ResponseEntity<String> addJob(@RequestBody Job job) {
         jobService.createNew(job);
-        return new ResponseEntity<>("Company added successfully.", HttpStatus.CREATED);
+        return new ResponseEntity<>("Review added successfully.", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
